@@ -1,5 +1,6 @@
 package com.example.wizshop.common.helper
 
+import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
@@ -41,5 +42,15 @@ class JwtHelper(
             return false
         }
         return true
+    }
+
+    fun <T> getClaim(accessToken: String, func: (Claims) -> T): T {
+        return func(
+            Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(accessToken)
+                .body
+        )
     }
 }
