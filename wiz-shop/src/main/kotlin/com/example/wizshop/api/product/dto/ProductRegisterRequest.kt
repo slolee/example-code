@@ -1,8 +1,8 @@
 package com.example.wizshop.api.product.dto
 
-import com.example.wizshop.domain.member.Member
-import com.example.wizshop.domain.product.Product
-import com.example.wizshop.domain.product.ProductStatus
+import com.example.wizshop.domain.member.entity.Member
+import com.example.wizshop.domain.product.entity.Product
+import com.example.wizshop.domain.product.entity.ProductStatus
 
 data class ProductRegisterRequest(
     val productName: String,

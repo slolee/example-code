@@ -1,5 +1,6 @@
-package com.example.wizshop.domain.member
+package com.example.wizshop.domain.member.repository
 
+import com.example.wizshop.domain.member.entity.Member
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

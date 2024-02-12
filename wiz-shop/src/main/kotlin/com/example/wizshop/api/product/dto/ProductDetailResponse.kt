@@ -1,7 +1,7 @@
 package com.example.wizshop.api.product.dto
 
-import com.example.wizshop.domain.product.Product
-import com.example.wizshop.domain.product.ProductStatus
+import com.example.wizshop.domain.product.entity.Product
+import com.example.wizshop.domain.product.entity.ProductStatus
 import java.time.LocalDateTime
 
 data class ProductDetailResponse(

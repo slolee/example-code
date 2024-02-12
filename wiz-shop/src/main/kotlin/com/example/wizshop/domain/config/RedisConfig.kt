@@ -1,4 +1,4 @@
-package com.example.wizshop.domain.redis.config
+package com.example.wizshop.domain.config
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean

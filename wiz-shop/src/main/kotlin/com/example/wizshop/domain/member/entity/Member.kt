@@ -1,4 +1,4 @@
-package com.example.wizshop.domain.member
+package com.example.wizshop.domain.member.entity
 
 import com.example.wizshop.common.BaseEntity
 import jakarta.persistence.*

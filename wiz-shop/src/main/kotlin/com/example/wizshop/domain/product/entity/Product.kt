@@ -1,7 +1,7 @@
-package com.example.wizshop.domain.product
+package com.example.wizshop.domain.product.entity
 
 import com.example.wizshop.common.BaseEntity
-import com.example.wizshop.domain.member.Member
+import com.example.wizshop.domain.member.entity.Member
 import jakarta.persistence.*
 
 @Entity

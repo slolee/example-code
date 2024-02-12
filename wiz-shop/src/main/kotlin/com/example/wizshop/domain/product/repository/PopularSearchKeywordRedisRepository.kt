@@ -1,4 +1,4 @@
-package com.example.wizshop.domain.redis
+package com.example.wizshop.domain.product.repository
 
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository

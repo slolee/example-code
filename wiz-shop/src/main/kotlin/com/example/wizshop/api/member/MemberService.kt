@@ -3,7 +3,7 @@ package com.example.wizshop.api.member
 import com.example.wizshop.api.member.dto.MemberLoginRequest
 import com.example.wizshop.api.member.dto.MemberRegisterRequest
 import com.example.wizshop.common.helper.JwtHelper
-import com.example.wizshop.domain.member.MemberRepository
+import com.example.wizshop.domain.member.repository.MemberRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

@@ -1,6 +1,6 @@
 package com.example.wizshop.api.member.dto
 
-import com.example.wizshop.domain.member.Member
+import com.example.wizshop.domain.member.entity.Member
 
 data class MemberRegisterRequest(
     val email: String,

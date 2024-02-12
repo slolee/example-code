@@ -4,9 +4,9 @@ import com.example.wizshop.api.product.dto.ProductDetailResponse
 import com.example.wizshop.api.product.dto.ProductRegisterRequest
 import com.example.wizshop.api.product.dto.ProductRegisterResponse
 import com.example.wizshop.api.product.dto.ProductTitleResponse
-import com.example.wizshop.domain.member.MemberRepository
-import com.example.wizshop.domain.redis.PopularSearchKeywordRedisRepository
-import com.example.wizshop.domain.product.ProductRepository
+import com.example.wizshop.domain.member.repository.MemberRepository
+import com.example.wizshop.domain.product.repository.PopularSearchKeywordRedisRepository
+import com.example.wizshop.domain.product.repository.ProductRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
