@@ -42,4 +42,10 @@ class ProductController(
         return productService.search(keyword, pageable)
             .let { ResponseEntity.ok(it) }
     }
+
+    @GetMapping("/popular")
+    fun retrievePopularTop5(): ResponseEntity<List<String>> {
+        return productService.retrievePopularTop5()
+            .let { ResponseEntity.ok(it) }
+    }
 }

@@ -25,8 +25,9 @@ class Product(
 
 ): BaseEntity() {
 
-    fun addHit() {
+    fun addHit(): Product {
         this.hit += 1
+        return this
     }
 }
 
