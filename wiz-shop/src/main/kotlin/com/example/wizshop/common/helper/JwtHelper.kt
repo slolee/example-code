@@ -22,23 +22,28 @@ class JwtHelper(
     }
 
     fun generateAccessToken(id: Long): String {
-        val now = LocalDateTime.now().toInstant(ZoneOffset.UTC)
+        val now = LocalDateTime.now()
         return Jwts.builder()
             .setSubject(id.toString())
-            .setIssuedAt(Date.from(now))
-            .setExpiration(Date.from(now.plusSeconds(60 * 60)))
+            .setIssuedAt(now.toDate())
+            .setExpiration(now.plusSeconds(60 * 60).toDate())
             .signWith(key, SignatureAlgorithm.HS512)
             .compact()
     }
 
     fun verify(accessToken: String): Boolean {
         try {
-            Jwts.parserBuilder()
+            val expiration = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(accessToken)
+                .body
+                .expiration
+            if (expiration.before(LocalDateTime.now().toDate())) {
+                throw RuntimeException("토큰 만료")
+            }
         } catch (ex: RuntimeException) {
-            // TODO : 로그가 필요한 에러라면 로그 남길것.
+            // TODO : 로그가 필요한 에러라면 catch 계층 분리해서 로그 남길것.
             return false
         }
         return true
