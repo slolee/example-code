@@ -25,9 +25,10 @@ class ProductService(
             .let { ProductRegisterResponse(it.id!!) }
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     fun retrieve(productId: Long): ProductDetailResponse {
         return productRepository.findByIdOrNull(productId)
+            ?.also { it.addHit() }
             ?.let { ProductDetailResponse.from(it) }
             ?: throw RuntimeException("상품 정보를 찾을 수 없습니다.")
     }

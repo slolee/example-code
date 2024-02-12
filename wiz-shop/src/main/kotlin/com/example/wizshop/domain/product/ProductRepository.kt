@@ -11,8 +11,8 @@ interface ProductRepository : JpaRepository<Product, Long> {
 
     // TODO : QueryDSL 로 수정
     @Query(
-        value = "SELECT p FROM Product p JOIN FETCH p.seller WHERE p.name LIKE '%' + :keyword + '%' OR p.description LIKE '%' + :keyword + '%'",
-        countQuery = "SELECT count(p) FROM Product p WHERE p.name LIKE '%' + :keyword + '%' OR p.description LIKE '%' + :keyword + '%'"
+        value = "SELECT p FROM Product p JOIN FETCH p.seller WHERE p.name LIKE concat('%', :keyword, '%') OR p.description LIKE concat('%', :keyword, '%')",
+        countQuery = "SELECT count(p) FROM Product p WHERE p.name LIKE concat('%', :keyword, '%') OR p.description LIKE concat('%', :keyword, '%')"
     )
     fun findAllByKeyword(keyword: String, pageable: PageRequest): Page<Product>
 }

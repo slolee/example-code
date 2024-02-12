@@ -35,10 +35,10 @@ class ProductController(
     @GetMapping("/search")
     fun search(
         @RequestParam keyword: String,
-        @RequestParam page: Int,
-        @RequestParam size: Int
+        @RequestParam(defaultValue = "1") page: Int,
+        @RequestParam(defaultValue = "10") size: Int
     ): ResponseEntity<Page<ProductTitleResponse>> {
-        val pageable = PageRequest.of(page, size)
+        val pageable = PageRequest.of(page - 1, size)
         return productService.search(keyword, pageable)
             .let { ResponseEntity.ok(it) }
     }

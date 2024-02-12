@@ -16,21 +16,18 @@ class JwtAuthenticationFilter(
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(req: HttpServletRequest, resp: HttpServletResponse, filterChain: FilterChain) {
-        if (!this.matchExcludePath(req)) {
-            val accessToken = req.getHeader("Authorization")
-                ?.substring("Bearer ".length)
-                ?: run {
-                    this.handleUnSuccessAuthentication(resp, "AccessToken 을 찾을 수 없습니다.")
-                    return
-                }
-            if (jwtHelper.verify(accessToken)) {
-                filterChain.doFilter(req, resp)
-            } else {
+        if (this.matchExcludePath(req)) {
+            filterChain.doFilter(req, resp)
+        } else {
+            val accessToken = req.getHeader("Authorization")?.substring("Bearer ".length)
+            if (accessToken == null) {
+                this.handleUnSuccessAuthentication(resp, "AccessToken 을 찾을 수 없습니다.")
+            } else if (!jwtHelper.verify(accessToken)) {
                 this.handleUnSuccessAuthentication(resp, "잘못된 AccessToken 입니다.")
-                return
+            } else {
+                filterChain.doFilter(req, resp)
             }
         }
-        filterChain.doFilter(req, resp)
     }
 
     private fun handleUnSuccessAuthentication(resp: HttpServletResponse, message: String) {

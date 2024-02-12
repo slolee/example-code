@@ -24,6 +24,10 @@ class Product(
     val seller: Member
 
 ): BaseEntity() {
+
+    fun addHit() {
+        this.hit += 1
+    }
 }
 
 enum class ProductStatus {
