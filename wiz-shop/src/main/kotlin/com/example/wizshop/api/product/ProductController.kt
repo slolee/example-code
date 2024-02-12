@@ -4,6 +4,9 @@ import com.example.wizshop.api.jwtauth.RequestMember
 import com.example.wizshop.api.product.dto.ProductDetailResponse
 import com.example.wizshop.api.product.dto.ProductRegisterRequest
 import com.example.wizshop.api.product.dto.ProductRegisterResponse
+import com.example.wizshop.api.product.dto.ProductTitleResponse
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -25,12 +28,18 @@ class ProductController(
 
     @GetMapping("/{productId}")
     fun retrieve(@PathVariable productId: Long): ResponseEntity<ProductDetailResponse> {
-        return productService.retrieveBy(productId)
+        return productService.retrieve(productId)
             .let { ResponseEntity.ok(it) }
     }
 
     @GetMapping("/search")
-    fun retrieveByKeyword() {
-        // TODO
+    fun search(
+        @RequestParam keyword: String,
+        @RequestParam page: Int,
+        @RequestParam size: Int
+    ): ResponseEntity<Page<ProductTitleResponse>> {
+        val pageable = PageRequest.of(page, size)
+        return productService.search(keyword, pageable)
+            .let { ResponseEntity.ok(it) }
     }
 }

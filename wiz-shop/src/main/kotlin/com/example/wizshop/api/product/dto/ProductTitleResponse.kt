@@ -4,10 +4,9 @@ import com.example.wizshop.domain.product.Product
 import com.example.wizshop.domain.product.ProductStatus
 import java.time.LocalDateTime
 
-data class ProductDetailResponse(
+data class ProductTitleResponse(
     val productName: String,
     val price: Long,
-    val description: String,
     val hit: Long,
     val status: ProductStatus,
     val sellerNickname: String,
@@ -15,10 +14,9 @@ data class ProductDetailResponse(
 ) {
 
     companion object {
-        fun from(product: Product) = ProductDetailResponse(
+        fun from(product: Product) = ProductTitleResponse(
             productName = product.name,
             price = product.price,
-            description = product.description,
             hit = product.hit,
             status = product.status,
             sellerNickname = product.seller.nickname,

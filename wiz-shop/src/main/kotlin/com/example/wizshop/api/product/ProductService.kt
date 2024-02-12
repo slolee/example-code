@@ -3,8 +3,11 @@ package com.example.wizshop.api.product
 import com.example.wizshop.api.product.dto.ProductDetailResponse
 import com.example.wizshop.api.product.dto.ProductRegisterRequest
 import com.example.wizshop.api.product.dto.ProductRegisterResponse
+import com.example.wizshop.api.product.dto.ProductTitleResponse
 import com.example.wizshop.domain.member.MemberRepository
 import com.example.wizshop.domain.product.ProductRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -23,10 +26,16 @@ class ProductService(
     }
 
     @Transactional(readOnly = true)
-    fun retrieveBy(productId: Long): ProductDetailResponse {
+    fun retrieve(productId: Long): ProductDetailResponse {
         return productRepository.findByIdOrNull(productId)
             ?.let { ProductDetailResponse.from(it) }
             ?: throw RuntimeException("상품 정보를 찾을 수 없습니다.")
+    }
+
+    @Transactional(readOnly = true)
+    fun search(keyword: String, pageable: PageRequest): Page<ProductTitleResponse> {
+        return productRepository.findAllByKeyword(keyword, pageable)
+            .map { ProductTitleResponse.from(it) }
     }
 
 }
