@@ -1,7 +1,11 @@
 package com.example.wizshop.api.product
 
 import com.example.wizshop.api.jwtauth.RequestMember
+import com.example.wizshop.api.product.dto.ProductDetailResponse
 import com.example.wizshop.api.product.dto.ProductRegisterRequest
+import com.example.wizshop.api.product.dto.ProductRegisterResponse
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -14,14 +18,15 @@ class ProductController(
     fun registerProduct(
         member: RequestMember,
         @RequestBody req: ProductRegisterRequest
-    ) {
-        println(member)
-        // TODO
+    ): ResponseEntity<ProductRegisterResponse> {
+        return productService.register(member.id, req)
+            .let { ResponseEntity.status(HttpStatus.CREATED).body(it) }
     }
 
     @GetMapping("/{productId}")
-    fun retrieve(@PathVariable productId: Long) {
-        // TODO
+    fun retrieve(@PathVariable productId: Long): ResponseEntity<ProductDetailResponse> {
+        return productService.retrieveBy(productId)
+            .let { ResponseEntity.ok(it) }
     }
 
     @GetMapping("/search")
