@@ -13,7 +13,7 @@ class Product(
     var id: Long? = null,
 
     var name: String,
-    var amount: Long,
+    var price: Long,
     var description: String,
     var hit: Long = 0,
     @Enumerated(value = EnumType.STRING)
