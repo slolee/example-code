@@ -1,19 +1,35 @@
 package com.example.wizshop.api.product
 
+import com.example.wizshop.api.jwtauth.RequestMember
+import com.example.wizshop.api.product.dto.ProductRegisterRequest
+import com.example.wizshop.api.product.dto.ProductRegisterResponse
 import com.example.wizshop.api.product.dto.ProductTitleResponse
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/v2/products")
 class ProductControllerV2(
-    private val productService: ProductService
+    private val productService: ProductServiceV2
 ) {
+
+    @PostMapping
+    fun registerProduct(
+        member: RequestMember,
+        @RequestBody req: ProductRegisterRequest
+    ): ResponseEntity<ProductRegisterResponse> {
+        return productService.register(member.id, req)
+            .let { ResponseEntity.status(HttpStatus.CREATED).body(it) }
+    }
+
+    @DeleteMapping("/{productId}")
+    fun deleteProduct(@PathVariable productId: Long): ResponseEntity<Unit> {
+        productService.delete(productId)
+        return ResponseEntity.noContent().build()
+    }
 
     @GetMapping("/search")
     fun search(
