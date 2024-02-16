@@ -27,6 +27,10 @@ class ProductService(
             .let { ProductRegisterResponse(it.id!!) }
     }
 
+    fun delete(productId: Long) {
+        productRepository.deleteById(productId)
+    }
+
     @Transactional
     fun retrieve(productId: Long): ProductDetailResponse {
         return productRepository.findByIdOrNull(productId)

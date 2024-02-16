@@ -26,6 +26,12 @@ class ProductController(
             .let { ResponseEntity.status(HttpStatus.CREATED).body(it) }
     }
 
+    @DeleteMapping("/{productId}")
+    fun deleteProduct(@PathVariable productId: Long): ResponseEntity<Unit> {
+        productService.delete(productId)
+        return ResponseEntity.noContent().build()
+    }
+
     @GetMapping("/{productId}")
     fun retrieve(@PathVariable productId: Long): ResponseEntity<ProductDetailResponse> {
         return productService.retrieve(productId)
