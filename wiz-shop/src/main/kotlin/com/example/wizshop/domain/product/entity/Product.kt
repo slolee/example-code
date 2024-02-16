@@ -3,6 +3,7 @@ package com.example.wizshop.domain.product.entity
 import com.example.wizshop.common.BaseEntity
 import com.example.wizshop.domain.member.entity.Member
 import jakarta.persistence.*
+import java.io.Serializable
 
 @Entity
 @Table(name = "product")
@@ -23,7 +24,7 @@ class Product(
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     val seller: Member
 
-): BaseEntity() {
+): BaseEntity(), Serializable {
 
     fun addHit(): Product {
         this.hit += 1

@@ -3,6 +3,7 @@ package com.example.wizshop.domain.member.entity
 import com.example.wizshop.common.BaseEntity
 import jakarta.persistence.*
 import org.springframework.security.crypto.password.PasswordEncoder
+import java.io.Serializable
 
 @Entity
 @Table(name = "member")
@@ -16,7 +17,7 @@ class Member(
     var password: String,
     var nickname: String
 
-): BaseEntity() {
+): BaseEntity(), Serializable {
 
     fun encodePassword(encoder: PasswordEncoder) {
         this.password = encoder.encode(password)
