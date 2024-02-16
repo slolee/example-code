@@ -7,6 +7,7 @@ import com.example.wizshop.api.product.dto.ProductTitleResponse
 import com.example.wizshop.domain.member.repository.MemberRepository
 import com.example.wizshop.domain.product.repository.PopularSearchKeywordRedisRepository
 import com.example.wizshop.domain.product.repository.ProductRepository
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
@@ -41,6 +42,14 @@ class ProductService(
 
     @Transactional(readOnly = true)
     fun search(keyword: String, pageable: PageRequest): Page<ProductTitleResponse> {
+        if (pageable.pageNumber == 0) popularSearchKeywordRedisRepository.increment(keyword)
+        return productRepository.findAllByKeyword(keyword, pageable)
+            .map { ProductTitleResponse.from(it) }
+    }
+
+    @Cacheable(cacheNames = ["PRODUCT_SEARCH"], key = "#keyword + #pageable.pageNumber")
+    @Transactional(readOnly = true)
+    fun searchWithCache(keyword: String, pageable: PageRequest): Page<ProductTitleResponse> {
         if (pageable.pageNumber == 0) popularSearchKeywordRedisRepository.increment(keyword)
         return productRepository.findAllByKeyword(keyword, pageable)
             .map { ProductTitleResponse.from(it) }
