@@ -38,7 +38,7 @@ class ProductControllerV2(
         @RequestParam(defaultValue = "10") size: Int
     ): ResponseEntity<Page<ProductTitleResponse>> {
         val pageable = PageRequest.of(page - 1, size)
-        return productService.searchWithCache(keyword, pageable)
+        return productService.search(keyword, pageable)
             .let { ResponseEntity.ok(it) }
     }
 }

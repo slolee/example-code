@@ -7,7 +7,6 @@ import com.example.wizshop.domain.member.repository.MemberRepository
 import com.example.wizshop.domain.product.repository.PopularSearchKeywordRedisRepository
 import com.example.wizshop.domain.product.repository.ProductRepository
 import org.springframework.cache.annotation.CacheEvict
-import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.repository.findByIdOrNull
@@ -34,11 +33,10 @@ class ProductServiceV2(
         productRepository.deleteById(productId)
     }
 
-    @Cacheable(cacheNames = ["PRODUCT_SEARCH"], key = "#keyword + #pageable.pageNumber")
     @Transactional(readOnly = true)
-    fun searchWithCache(keyword: String, pageable: PageRequest): Page<ProductTitleResponse> {
+    fun search(keyword: String, pageable: PageRequest): Page<ProductTitleResponse> {
         if (pageable.pageNumber == 0) popularSearchKeywordRedisRepository.increment(keyword)
-        return productRepository.findAllByKeyword(keyword, pageable)
+        return productRepository.findAllByKeywordWithCache(keyword, pageable)
             .map { ProductTitleResponse.from(it) }
     }
 }
