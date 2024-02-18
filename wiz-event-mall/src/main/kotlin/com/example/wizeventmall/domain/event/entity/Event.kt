@@ -19,7 +19,13 @@ class Event(
     @Enumerated(EnumType.STRING)
     val status: EventStatus = EventStatus.IN_PROGRESS
 
-): BaseEntity() {
+) : BaseEntity() {
+
+    fun possibleParticipate(currentWinnerCount: Long): Boolean {
+        return (status == EventStatus.IN_PROGRESS)
+            .and(startAt.isBefore(LocalDateTime.now()))
+            .and(winnerCount > currentWinnerCount)
+    }
 
     fun win(memberId: Long) = EventWinner(
         event = this,
