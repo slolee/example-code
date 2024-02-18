@@ -20,6 +20,11 @@ class Event(
     val status: EventStatus = EventStatus.IN_PROGRESS
 
 ): BaseEntity() {
+
+    fun win(memberId: Long) = EventWinner(
+        event = this,
+        memberId = memberId
+    )
 }
 
 enum class EventStatus {

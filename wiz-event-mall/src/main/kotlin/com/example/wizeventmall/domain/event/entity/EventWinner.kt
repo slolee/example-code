@@ -11,6 +11,11 @@ class EventWinner(
     @Column(name = "event_winner_id")
     var id: Long? = null,
 
+    @JoinColumn(name = "event_id", referencedColumnName = "event_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    val event: Event,
+
     val memberId: Long
+
 ): BaseEntity() {
 }
