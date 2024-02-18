@@ -13,6 +13,7 @@ class RedissonLock(
     init {
         advice = tmpAdvice
     }
+
     @Component
     class LockAdvice(
         private val redissonClient: RedissonClient
