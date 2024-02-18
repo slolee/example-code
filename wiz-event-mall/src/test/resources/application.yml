@@ -11,3 +11,20 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
+    show-sql: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+jwt:
+  secret_key: "Y2g0bmp1bidzIGp3dCBzZWNyZXQga2V5Y2g0bmp1bidzIGp3dCBzZWNyZXQga2V5Y2g0bmp1bidzIGp3dCBzZWNyZXQga2V5"
+
+logging:
+  level:
+    org:
+      hibernate:
+        orm:
+          jdbc:
+            bind: trace

@@ -8,29 +8,24 @@ import com.example.wizeventmall.domain.member.repository.MemberRepository
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import org.springframework.transaction.annotation.Propagation
-import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 import java.util.concurrent.CyclicBarrier
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
+@SpringBootTest
 @ActiveProfiles("test")
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class EventServiceTest @Autowired constructor(
+    private val eventService: EventService,
+
     private val eventRepository: EventRepository,
     private val eventWinnerRepository: EventWinnerRepository,
     private val memberRepository: MemberRepository
 ) {
 
-    private val eventService = EventService(eventRepository, eventWinnerRepository, memberRepository)
-
     @Test
-    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     fun `Participate Event - 동시성 테스트`() {
         // GIVEN
         val executor = Executors.newFixedThreadPool(THREAD_COUNT)
@@ -51,7 +46,7 @@ class EventServiceTest @Autowired constructor(
         repeat(THREAD_COUNT) {
             executor.execute {
                 barrier.await()
-                eventService.participate(eventId = event.id!!, memberId = it.toLong())
+                eventService.participate(eventId = event.id!!, memberId = it.toLong() + 1)
             }
         }
         executor.awaitTermination(5, TimeUnit.SECONDS)
