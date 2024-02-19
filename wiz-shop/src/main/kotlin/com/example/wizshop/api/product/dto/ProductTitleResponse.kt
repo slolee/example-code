@@ -5,6 +5,7 @@ import com.example.wizshop.domain.product.entity.ProductStatus
 import java.time.LocalDateTime
 
 data class ProductTitleResponse(
+    val productId: Long,
     val productName: String,
     val price: Long,
     val hit: Long,
@@ -15,6 +16,7 @@ data class ProductTitleResponse(
 
     companion object {
         fun from(product: Product) = ProductTitleResponse(
+            productId = product.id!!,
             productName = product.name,
             price = product.price,
             hit = product.hit,
