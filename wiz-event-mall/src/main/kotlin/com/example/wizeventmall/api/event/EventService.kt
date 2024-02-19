@@ -9,6 +9,7 @@ import com.example.wizeventmall.domain.lock.RedissonLock
 import com.example.wizeventmall.domain.member.repository.MemberRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Isolation
 import org.springframework.transaction.annotation.Transactional
 
 @Service
@@ -29,19 +30,34 @@ class EventService(
             ?: throw RuntimeException("존재하지 않는 이벤트입니다. ($eventId)")
     }
 
-    @Transactional
-    fun participate(eventId: Long, memberId: Long): EventParticipateResponse =
-        RedissonLock("EVENT_PARTICIPATE:$eventId") {
-            check(memberRepository.existsById(memberId)) { "잘못된 사용자 정보입니다." }
-            check(!eventWinnerRepository.existsByEventIdAndMemberId(eventId, memberId)) { "이미 이벤트에 참여하셨습니다." }
+//    @Transactional
+//    fun participate(eventId: Long, memberId: Long): EventParticipateResponse {
+//        check(memberRepository.existsById(memberId)) { "잘못된 사용자 정보입니다." }
+//        check(!eventWinnerRepository.existsByEventIdAndMemberId(eventId, memberId)) { "이미 이벤트에 참여하셨습니다." }
+//
+//        return eventRepository.findByIdOrNull(eventId)!!.takeIf {
+//            val winnerCount = eventWinnerRepository.countByEvent(it)
+//            Thread.sleep(100)
+//            it.possibleParticipate(currentWinnerCount = winnerCount)
+//        }?.let {
+//            eventWinnerRepository.save(it.win(memberId))
+//        }.let {
+//            EventParticipateResponse.from(it)
+//        }
+//    }
 
-            eventRepository.findByIdOrNull(eventId)!!.takeIf {
-                val winnerCount = eventWinnerRepository.countByEvent(it)
-                it.possibleParticipate(currentWinnerCount = winnerCount)
-            }?.let {
-                eventWinnerRepository.save(it.win(memberId))
-            }.let {
-                EventParticipateResponse.from(it)
-            }
+    @Transactional
+    fun participate(eventId: Long, memberId: Long): EventParticipateResponse = RedissonLock("PARTICIPATE:$eventId") {
+        check(memberRepository.existsById(memberId)) { "잘못된 사용자 정보입니다." }
+        check(!eventWinnerRepository.existsByEventIdAndMemberId(eventId, memberId)) { "이미 이벤트에 참여하셨습니다." }
+
+        eventRepository.findByIdOrNull(eventId)!!.takeIf {
+            val winnerCount = eventWinnerRepository.countByEvent(it)
+            it.possibleParticipate(currentWinnerCount = winnerCount)
+        }?.let {
+            eventWinnerRepository.save(it.win(memberId))
+        }.let {
+            EventParticipateResponse.from(it)
         }
+    }
 }

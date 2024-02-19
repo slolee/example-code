@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
+import org.springframework.transaction.annotation.Propagation
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 import java.util.concurrent.CyclicBarrier
 import java.util.concurrent.Executors
@@ -39,7 +41,7 @@ class EventServiceTest @Autowired constructor(
         val event = Event(
             name = "Test Event",
             startAt = LocalDateTime.now().minusHours(1),
-            winnerCount = 10
+            winnerCount = 100
         ).let { eventRepository.save(it) }
 
         // WHEN
@@ -52,10 +54,10 @@ class EventServiceTest @Autowired constructor(
         executor.awaitTermination(5, TimeUnit.SECONDS)
 
         // THEN
-        eventWinnerRepository.findAll().size shouldBe 10
+        eventWinnerRepository.findAll().size shouldBe 100
     }
 
     companion object {
-        private const val THREAD_COUNT = 100
+        private const val THREAD_COUNT = 500
     }
 }
