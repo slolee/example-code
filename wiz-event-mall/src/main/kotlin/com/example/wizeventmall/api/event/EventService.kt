@@ -37,7 +37,6 @@ class EventService(
 //
 //        return eventRepository.findByIdOrNull(eventId)!!.takeIf {
 //            val winnerCount = eventWinnerRepository.countByEvent(it)
-//            Thread.sleep(100)
 //            it.possibleParticipate(currentWinnerCount = winnerCount)
 //        }?.let {
 //            eventWinnerRepository.save(it.win(memberId))
