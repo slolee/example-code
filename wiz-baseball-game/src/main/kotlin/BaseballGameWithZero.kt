@@ -1,6 +1,4 @@
-import kotlin.random.Random
-
-class BaseballGameWithZero : BaseballGame() {
+class BaseballGameWithZero(size: Int) : BaseballGame(size) {
 
     override val answer: List<Int>
 
