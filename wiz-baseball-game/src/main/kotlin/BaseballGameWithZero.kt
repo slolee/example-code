@@ -1,4 +1,4 @@
-class BaseballGameWithZero(size: Int) : BaseballGame(size) {
+class BaseballGameWithZero(size: Int = 3) : BaseballGame(size) {
 
     override val answer: List<Int>
 
