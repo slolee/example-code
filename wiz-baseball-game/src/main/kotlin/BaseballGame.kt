@@ -9,6 +9,7 @@ open class BaseballGame(val size: Int = 3) {
         var tryCount = 0
 
         while (true) {
+            // TODO : 사용자 입력을 별도로 함수를 통해서 받을지 말지는 선택의 문제다!
             val input = try {
                 input("정답을 입력하세요 : ")
                     .toList()
