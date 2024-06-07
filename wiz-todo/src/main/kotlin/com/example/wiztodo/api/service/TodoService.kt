@@ -1,7 +1,6 @@
 package com.example.wiztodo.api.service
 
 import com.example.wiztodo.api.controller.dto.request.TodoCreateRequest
-import com.example.wiztodo.api.controller.dto.request.CommentModifyRequest
 import com.example.wiztodo.api.controller.dto.request.TodoModifyRequest
 import com.example.wiztodo.api.controller.dto.response.TodoResponse
 import com.example.wiztodo.api.controller.dto.response.TodoSimpleResponse
