@@ -1,1 +1,3 @@
-spring.application.name=wiz-todo
+spring:
+  jpa:
+    show-sql: true

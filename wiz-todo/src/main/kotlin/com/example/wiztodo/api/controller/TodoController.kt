@@ -27,9 +27,15 @@ class TodoController(
             .let { ResponseEntity.ok(it) }
     }
 
-    @GetMapping
+    @GetMapping("/simple")
     fun retrieveAllTodos(): ResponseEntity<List<TodoSimpleResponse>> {
         return todoService.retrieveAll()
+            .let { ResponseEntity.ok(it) }
+    }
+
+    @GetMapping
+    fun retrieveAllTodoWithComments(): ResponseEntity<List<TodoResponse>> {
+        return todoService.retrieveAllWithComment()
             .let { ResponseEntity.ok(it) }
     }
 

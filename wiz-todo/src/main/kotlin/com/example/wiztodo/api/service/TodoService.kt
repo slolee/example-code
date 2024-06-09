@@ -33,6 +33,11 @@ class TodoService(
             .map { TodoSimpleResponse.from(it) }
     }
 
+    fun retrieveAllWithComment(): List<TodoResponse> {
+        return todoRepository.findAll()  // FIXME : QueryDSL 예제 적용
+            .map { TodoResponse.from(it) }
+    }
+
     @Transactional
     fun modify(todoId: Long, req: TodoModifyRequest): TodoResponse {
         return todoRepository.findByIdOrNull(todoId)

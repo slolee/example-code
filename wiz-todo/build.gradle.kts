@@ -4,6 +4,7 @@ plugins {
     kotlin("plugin.jpa") version "1.9.24"
     kotlin("jvm") version "1.9.24"
     kotlin("plugin.spring") version "1.9.24"
+    kotlin("kapt") version "1.9.24"
 }
 
 group = "com.example"
@@ -26,6 +27,14 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     runtimeOnly("com.h2database:h2")
+
+    // ✅ querydsl을 설치합니다. ":jakarta"를 꼭 설정합니다
+    implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+
+    // ✅ KAPT(Kotlin Annotation Processing Tool)를 설정합니다
+    //    kotlin 코드가 아니라면 kapt 대신 annotationProcessor를 사용합니다
+    //    JPAAnnotationProcessor를 사용하기 위해 마지막에 :jakarta를 붙입니다
+    kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

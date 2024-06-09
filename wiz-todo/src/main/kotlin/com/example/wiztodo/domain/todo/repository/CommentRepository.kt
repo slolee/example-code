@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CommentRepository : JpaRepository<Comment, Long> {
-    fun findAllByTodoId(todoId: Long): List<Comment>
 
     @Modifying
     fun deleteAllByTodoId(todoId: Long)
