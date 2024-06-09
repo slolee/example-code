@@ -21,7 +21,7 @@ class CommentController(
         @RequestBody req: CommentCreateRequest
     ): ResponseEntity<CommentResponse> {
         return commentService.create(todoId, req)
-            .let { ResponseEntity.status(HttpStatus.CREATED).build() }
+            .let { ResponseEntity.status(HttpStatus.CREATED).body(it) }
     }
 
     @PutMapping("/{commentId}")
