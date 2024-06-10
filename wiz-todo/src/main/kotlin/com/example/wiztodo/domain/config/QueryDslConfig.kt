@@ -1,4 +1,4 @@
-package com.example.wiztodo.domain.todo.config
+package com.example.wiztodo.domain.config
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jakarta.persistence.EntityManager

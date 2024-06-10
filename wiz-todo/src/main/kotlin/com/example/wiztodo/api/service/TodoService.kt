@@ -34,7 +34,7 @@ class TodoService(
     }
 
     fun retrieveAllWithComment(): List<TodoResponse> {
-        return todoRepository.findAll()  // FIXME : QueryDSL 예제 적용
+        return todoRepository.findAllWithComment()  // FIXME : QueryDSL 예제 적용
             .map { TodoResponse.from(it) }
     }
 

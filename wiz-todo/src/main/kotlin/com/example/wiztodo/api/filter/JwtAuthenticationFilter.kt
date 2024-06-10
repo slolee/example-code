@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
-@Component
+//@Component
 class JwtAuthenticationFilter(
     private val jwtHelper: JwtHelper
 ) : OncePerRequestFilter() {
