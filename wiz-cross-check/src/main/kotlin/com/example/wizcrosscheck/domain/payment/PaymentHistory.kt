@@ -1,4 +1,4 @@
-package com.example.batchsample.domain.payment
+package com.example.wizcrosscheck.domain.payment
 
 import jakarta.persistence.*
 import java.time.LocalDateTime

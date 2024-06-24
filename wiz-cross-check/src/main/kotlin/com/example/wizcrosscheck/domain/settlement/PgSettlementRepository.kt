@@ -1,5 +1,6 @@
-package com.example.batchsample.domain.settlement
+package com.example.wizcrosscheck.domain.settlement
 
+import com.example.wizcrosscheck.domain.settlement.PgSettlementHistory
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.time.LocalDate

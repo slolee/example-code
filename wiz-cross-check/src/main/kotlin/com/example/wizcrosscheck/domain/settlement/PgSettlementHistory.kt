@@ -1,4 +1,4 @@
-package com.example.batchsample.domain.settlement
+package com.example.wizcrosscheck.domain.settlement
 
 import jakarta.persistence.*
 import java.time.LocalDate
