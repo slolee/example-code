@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 public class BaseballGame {
 	private final List<Character> availableChars;
-
 	private final int size;
 	private final String answer;
+
 	private int tryCount = 0;
 
 	public BaseballGame() {
@@ -24,6 +24,16 @@ public class BaseballGame {
 		this.answer = this.generateAnswer();
 	}
 
+	/**
+	 * [ BaseballGame.play() ]
+	 * 1) 사용자로부터 정답을 입력받는다.
+	 * 2) 사용자의 입력이 올바른지 검증한다.  -> 추상화 수준에 대한 설명 필수!!!
+	 * 3) tryCount 를 1 증가시킨다.
+	 * 4) 스트라이크 개수를 센다.
+	 * 5) 스트라이크 개수가 정답의 길이와 같다면, 정답으로 처리하고 게임을 종료한다.
+	 * 6) 볼 개수를 센다.
+	 * 7) 힌트를 노출하고 게임을 계속한다.
+	 */
 	public void play() {
 		System.out.println("\n< 게임을 시작합니다 >");
 
