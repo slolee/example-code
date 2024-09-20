@@ -6,6 +6,9 @@ public class BaseballGameFactory {
 	}
 
 	public static BaseballGame generateWithSize(int size) {
+		if (size < 3 || size > 5) {
+			throw new IllegalStateException("3~5 자리 게임만 가능합니다.");
+		}
 		System.out.println("\n1. Lv1(" + size + "자리, 1~9)  2. Lv2(" + size + "자리, 0~9)");
 		return switch (Integer.parseInt(input("게임선택 : "))) {
 			case 1 -> new BaseballGame(size);
