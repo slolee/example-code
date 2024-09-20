@@ -14,6 +14,10 @@ public class BaseballGame {
 		this(3, List.of('1', '2', '3', '4', '5', '6', '7', '8', '9'));
 	}
 
+	public BaseballGame(int size) {
+		this(size, List.of('1', '2', '3', '4', '5', '6', '7', '8', '9'));
+	}
+
 	public BaseballGame(List<Character> availableChars) {
 		this(3, availableChars);
 	}

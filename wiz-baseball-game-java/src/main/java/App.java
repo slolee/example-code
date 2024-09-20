@@ -37,23 +37,28 @@ import static helper.InputHelper.input;
  * -> 여기서 중요한건, 아직 "어떻게, 어디에 저장할지 결정하지 않았다는 것" 이다!!! (캡슐화 설명 포함)
  * -> 그 말은, GameHistory 가 인스턴스 변수에 저장하든지, 데이터베이스에 저장하든지, 파일에 저장하든지 상관없다.
  * -> 다른말로 이러한 변화가 생겨도 Client 객체에 영향을 주지 않는다는 말이다.
+ *
+ * Level 3 : GameHistory 의 등장
+ * Level 4 : BaseballGameFactory 의 등장
+ * 	- 게임 로직이 변경되지 않고, BaseballGameFactory 를 등장시킬 수 있을까?
  */
-public class Main {
+public class App {
 	public static void main(String[] args) {
 		GameHistory history = new GameHistory();
 
 		while (true) {
 			System.out.println("#################### 야구게임 ####################");
-			System.out.println("1. 게임 시작하기  2. 게임 기록 보기  3. 종료하기");
+			System.out.println("0. 자리수 입력하기 1. 게임 시작하기  2. 게임 기록 보기  3. 종료하기");
 			try {
 				switch (Integer.parseInt(input("입력 : "))) {
+					case 0 -> {
+						int size = Integer.parseInt(input("설정하고자 하는 자리수를 입력해주세요 : "));
+						var game = BaseballGameFactory.generateGame(size);
+						game.play();
+						history.record(game);
+					}
 					case 1 -> {
-						System.out.println("1. Lv1(3자리, 1~9)  2. Lv2(3자리, 0~9)");
-						var game = switch (Integer.parseInt(input("게임선택 : "))) {
-							case 1 -> new BaseballGame();
-							case 2 -> new BaseballGameWithZero();
-							default -> throw new IllegalStateException("올바른 숫자를 입력해주세요!");
-						};
+						var game = BaseballGameFactory.generateGame();
 						game.play();
 						history.record(game);
 					}
