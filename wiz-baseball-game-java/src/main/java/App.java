@@ -53,12 +53,12 @@ public class App {
 				switch (Integer.parseInt(input("입력 : "))) {
 					case 0 -> {
 						int size = Integer.parseInt(input("설정하고자 하는 자리수를 입력해주세요 : "));
-						var game = BaseballGameFactory.generateGame(size);
+						var game = BaseballGameFactory.generateWithSize(size);
 						game.play();
 						history.record(game);
 					}
 					case 1 -> {
-						var game = BaseballGameFactory.generateGame();
+						var game = BaseballGameFactory.generate();
 						game.play();
 						history.record(game);
 					}

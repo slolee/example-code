@@ -1,11 +1,11 @@
 import static helper.InputHelper.*;
 
 public class BaseballGameFactory {
-	public static BaseballGame generateGame() {
-		return generateGame(3);
+	public static BaseballGame generate() {
+		return generateWithSize(3);
 	}
 
-	public static BaseballGame generateGame(int size) {
+	public static BaseballGame generateWithSize(int size) {
 		System.out.println("\n1. Lv1(" + size + "자리, 1~9)  2. Lv2(" + size + "자리, 0~9)");
 		return switch (Integer.parseInt(input("게임선택 : "))) {
 			case 1 -> new BaseballGame(size);
