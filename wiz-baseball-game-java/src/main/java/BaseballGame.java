@@ -43,7 +43,7 @@ public class BaseballGame {
 
 		while (true) {
 			String input = input("정답을 입력하세요 : ");
-			if (!this.validateInput(input)) {
+			if (!this.isInputValid(input)) {
 				System.out.println("잘못된 입력입니다. 다시 입력해주세요!");
 				continue;
 			}
@@ -63,7 +63,7 @@ public class BaseballGame {
 		return "시도 횟수 - " + this.tryCount;
 	}
 
-	private boolean validateInput(String input) {
+	private boolean isInputValid(String input) {
 		Set<Character> seen = new HashSet<>();
 		for (char c : input.toCharArray()) {
 			if (!seen.add(c))
