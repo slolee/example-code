@@ -54,6 +54,7 @@ public class JwtHelper {
 			throw new UnAuthorizationException(ErrorCode.INVALID_ACCESS_TOKEN, e);
 		}
 	}
+
 	public Long extractMemberId(String accessToken) {
 		try {
 			String subject = Jwts.parserBuilder()
