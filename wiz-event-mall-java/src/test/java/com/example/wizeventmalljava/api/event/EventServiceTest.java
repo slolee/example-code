@@ -61,10 +61,9 @@ public class EventServiceTest {
 			executor.execute(() -> {
 				try {
 					barrier.await(); // 모든 스레드가 동시에 시작되도록 대기
-					eventService.participate(event.getId(), (long) memberId);
-					// eventService.participateWithLock(event.getId(), (long) memberId);
+					eventService.participateWithLock(event.getId(), (long) memberId);
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					throw new RuntimeException(e);
 				}
 			});
 		}
